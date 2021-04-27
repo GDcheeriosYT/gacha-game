@@ -41,7 +41,7 @@ while True:
 
 
     #pulling amount
-    pull = input("\n\n\n\n\n\n\n\nhow much do you want to pull?\nmake sure you use 1 less\n of the total gacha points\n you have because of current issues!\n ")
+    pull = input("\n\n\n\n\n\n\n\nhow much do you want to pull?\n\n ")
 
 
     #money function
