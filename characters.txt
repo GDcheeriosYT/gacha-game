@@ -48,3 +48,4 @@ vitaljis 60
 gabe 10000
 ben 150
 cody 1900
+kade 200
