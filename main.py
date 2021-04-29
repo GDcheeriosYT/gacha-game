@@ -138,6 +138,7 @@ while True:
 
         #gacha results
         #animation
+        #picking the color
         def rolling_animation():
           x = 0
           while x < 1:
@@ -174,6 +175,8 @@ while True:
                 return "yellow"
               elif 3 <= int(character_rarity.group()):
                 return "joe"
+
+              #turtle basics
             
               t.speed(100)
 
@@ -191,13 +194,13 @@ while True:
 
                 t.color(color_picker())
 
-
-
                 size = 10000 - character_rarity.group()
                 for i in range(36):
                   t.forward(size)
                   t.backward(size)
                   t.left(10)
+
+                t.bgpic(picname="brian.png")
 
 
             pull_location = random.randint(-50, 100)
