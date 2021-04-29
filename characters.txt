@@ -49,3 +49,4 @@ gabe 10000
 ben 150
 cody 1900
 kade 200
+blake 140
