@@ -200,7 +200,7 @@ while True:
                   t.backward(size)
                   t.left(10)
 
-                t.bgpic(picname="brian.png")
+                t.bgpic(picname="character images/brian.png")
 
 
             pull_location = random.randint(-50, 100)
