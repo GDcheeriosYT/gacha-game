@@ -37,7 +37,6 @@ jojo 20
 dio 30
 steve 5000
 alex 5000
-akfourtyseven 47
 tyler_blevins 29
 golden_scar 30
 airxys_dad 11

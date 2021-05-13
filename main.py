@@ -8,16 +8,120 @@ font_setup = ("Arial", 20, "normal")
 
 #rolling turtle
 rolling_turtle = t.Turtle()
-rolling_turtle.penup()
-rolling_turtle.goto(-50, 75)
-rolling_turtle.pensize(5)
+rolling_turtle.pensize(1)
 
-#rolling turtle inner color
-rolling_inner_turtle = t.Turtle()
-rolling_inner_turtle.color("white")
-rolling_inner_turtle.penup()
-rolling_inner_turtle.goto(-50, 75)
-rolling_inner_turtle.pensize(2)
+#rarity bar turtle
+rarity_bar = t.Turtle()
+rarity_bar.penup()
+rarity_bar.pensize(1)
+rarity_bar_width = 20
+rarity_size_shrinker = 60
+def rarity_bar_draw():
+  #common values
+  rarity_bar.color("grey")
+  rarity_bar.fillcolor("gray")
+  rarity_bar.goto(0, int(5001/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(5001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(10000/rarity_size_shrinker))
+  rarity_bar.goto(0, int(10000/rarity_size_shrinker))
+  rarity_bar.goto(0, int(5001/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+  
+  #normal-lucky value
+  rarity_bar.color("lime")
+  rarity_bar.fillcolor("lime")
+  rarity_bar.goto(0, int(5000/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(5000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(2001/rarity_size_shrinker))
+  rarity_bar.goto(0, int(2001/rarity_size_shrinker))
+  rarity_bar.goto(0, int(5000/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #rare-exceptional value
+  rarity_bar.color("blue")
+  rarity_bar.fillcolor("blue")
+  rarity_bar.goto(0, int(2000/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(2000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(301/rarity_size_shrinker))
+  rarity_bar.goto(0, int(301/rarity_size_shrinker))
+  rarity_bar.goto(0, int(2000/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #epic value
+  rarity_bar.color("purple")
+  rarity_bar.fillcolor("purple")
+  rarity_bar.goto(0, int(300/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(300/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(151/rarity_size_shrinker))
+  rarity_bar.goto(0, int(151/rarity_size_shrinker))
+  rarity_bar.goto(0, int(300/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #legendary value
+  rarity_bar.color("pink")
+  rarity_bar.fillcolor("pink")
+  rarity_bar.goto(0, int(150/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(150/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(51/rarity_size_shrinker))
+  rarity_bar.goto(0, int(51/rarity_size_shrinker))
+  rarity_bar.goto(0, int(150/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #supreme value
+  rarity_bar.color("red")
+  rarity_bar.fillcolor("red")
+  rarity_bar.goto(0, int(50/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(50/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(11/rarity_size_shrinker))
+  rarity_bar.goto(0, int(11/rarity_size_shrinker))
+  rarity_bar.goto(0, int(50/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #godly value
+  rarity_bar.color("gold")
+  rarity_bar.fillcolor("gold")
+  rarity_bar.goto(0, int(10/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(10/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(4/rarity_size_shrinker))
+  rarity_bar.goto(0, int(4/rarity_size_shrinker))
+  rarity_bar.goto(0, int(10/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+  #devine value
+  rarity_bar.color("black")
+  rarity_bar.fillcolor("white")
+  rarity_bar.goto(0, int(3/rarity_size_shrinker))
+  rarity_bar.pendown()
+  rarity_bar.begin_fill()
+  rarity_bar.goto(rarity_bar_width, int(3/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_width, int(0/rarity_size_shrinker))
+  rarity_bar.goto(0, int(0/rarity_size_shrinker))
+  rarity_bar.goto(0, int(3/rarity_size_shrinker))
+  rarity_bar.end_fill()
+  rarity_bar.penup()
+
+
 
 with open("characters.txt") as f:
   characters = f.read().splitlines()
@@ -99,6 +203,7 @@ while True:
 
     #character pulling sequence
     x = if_num
+    rarity_bar_draw()
     while x < int(pull):
       #random character data
       char_picker = random.randint(0, int(list_end))
@@ -109,6 +214,16 @@ while True:
       character_name = re.search("\D+", characters[int(char_picker)])
       character_rarity = re.search("\d+", characters[int(char_picker)])
       if chance <= int(character_rarity.group()):
+
+        #gacha results
+        rolling_turtle.penup()
+        rolling_turtle.goto(0, int(chance/rarity_size_shrinker))
+        rolling_turtle.pendown()
+        rolling_turtle.goto(rarity_bar_width + 10, int(chance/rarity_size_shrinker))
+        rolling_turtle.
+        rolling_turtle.penup()
+        rolling_turtle.goto(0, 0)
+
         print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
         x = x + 1
         char_picker = random.randint(0, int(list_end))
@@ -136,100 +251,7 @@ while True:
           outfile.close()
         sorting("character_data.txt")
 
-        #gacha results
-        #animation
-        #picking the color
-        def rolling_animation():
-          x = 0
-          while x < 1:
-            def color_picker():
-              if 10000 <= int(character_rarity.group()):
-                return "black"
-              elif 9000 <= int(character_rarity.group()):
-                return "black"
-              elif 8000 <= int(character_rarity.group()):
-                return "red"
-              elif 7000 <= int(character_rarity.group()):
-                return "red"
-              elif 6000 <= int(character_rarity.group()):
-                return "green"
-              elif 5000 <= int(character_rarity.group()):
-                return "green"  
-              elif 4000 <= int(character_rarity.group()):
-                return "yellow"
-              elif 3000 <= int(character_rarity.group()):
-                return "gold"
-              elif 2000 <= int(character_rarity.group()):
-                return "blue"
-              elif 1000 <= int(character_rarity.group()):
-                return "blue"
-              elif 500 <= int(character_rarity.group()):
-                return "cyan"
-              elif 300 <= int(character_rarity.group()):
-                return "purple"
-              elif 150 <= int(character_rarity.group()):
-                return "purple"
-              elif 50 <= int(character_rarity.group()):
-                return "red"
-              elif 10 <= int(character_rarity.group()):
-                return "yellow"
-              elif 3 <= int(character_rarity.group()):
-                return "joe"
-
-              #turtle basics
-            
-              t.speed(100)
-
-              t.color("red")
-
-              for i in range(10):
-                x = random.randint(-250, 250)
-                y = random.randint(-250,250)
-                t.penup()
-                t.goto(x,y)
-                t.pendown()
-
-                if color_picker() == "joe":
-                  t.color()
-
-                t.color(color_picker())
-
-                size = 10000 - character_rarity.group()
-                for i in range(36):
-                  t.forward(size)
-                  t.backward(size)
-                  t.left(10)
-
-                t.bgpic(picname="character images/brian.png")
-
-
-            pull_location = random.randint(-50, 100)
-            rolling_inner_turtle.goto(-50, pull_location)
-            rolling_turtle.goto(-50, pull_location)
-            rolling_turtle.color(color_picker())
-            if color_picker() == "joe":
-              rolling_inner_turtle.pendown()
-              rolling_turtle.pendown()
-              rolling_turtle.goto(50, pull_location)
-              pp = 0
-              while pp < 5:
-                rolling_inner_turtle.goto(1, pull_location)
-                rolling_turtle.penup()
-                rolling_inner_turtle.penup()
-                colors = ["green", "blue", "purple", "orange", "yellow"]
-                inner_color = colors[pp - 1]
-                
-            else:
-              rolling_inner_turtle.pendown()
-              rolling_turtle.pendown()
-              rolling_turtle.goto(50, pull_location)
-              rolling_inner_turtle.goto(50, pull_location)
-              rolling_turtle.penup()
-              rolling_inner_turtle.penup()
-            x = x + 1
-
         #output
-        rolling_animation()
         print("you pulled %s characters!\n you have %s points left!" % (int(if_num), gacha_credits))
 
         
