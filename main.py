@@ -19,7 +19,7 @@ rarity_bar = t.Turtle()
 rarity_bar.penup()
 rarity_bar.pensize(1)
 rarity_bar_width = 20
-rarity_size_shrinker = 50
+rarity_size_shrinker = 60
 def rarity_bar_draw():
   #common values
   rarity_bar.color("grey")
@@ -239,13 +239,13 @@ while True:
 
         rolling_turtle.penup()
 
-        rolling_turtle.goto(0, int(chance/rarity_size_shrinker))
+        rolling_turtle.goto(0, int(int(character_rarity.group())/rarity_size_shrinker))
 
         rolling_turtle.pendown()
 
-        rolling_turtle.goto(rarity_bar_width + 10, int(chance/rarity_size_shrinker))
+        rolling_turtle.goto(rarity_bar_width + 10, int(int(character_rarity.group())/rarity_size_shrinker))
 
-        character_turtle.goto(rarity_bar_width, int(chance/rarity_size_shrinker))
+        character_turtle.goto(rarity_bar_width, int(int(character_rarity.group())/rarity_size_shrinker))
 
         character_turtle.color(color_for_turtle)
 

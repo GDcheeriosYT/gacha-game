@@ -37,7 +37,6 @@ dio 30
 steve 5000
 alex 5000
 tyler_blevins 29
-golden_scar 30
 airxys_dad 11
 airxys_mom 2020
 brian 2661
