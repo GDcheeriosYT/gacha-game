@@ -249,7 +249,7 @@ while True:
 
         character_turtle.color(color_for_turtle)
 
-        character_turtle.write(character_name.group())
+        character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"))
         
         rolling_turtle.penup()
 
