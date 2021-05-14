@@ -9,13 +9,17 @@ font_setup = ("Arial", 20, "normal")
 #rolling turtle
 rolling_turtle = t.Turtle()
 rolling_turtle.pensize(1)
+rolling_turtle.speed(1)
+
+#character turtle
+character_turtle = t.Turtle()
 
 #rarity bar turtle
 rarity_bar = t.Turtle()
 rarity_bar.penup()
 rarity_bar.pensize(1)
 rarity_bar_width = 20
-rarity_size_shrinker = 60
+rarity_size_shrinker = 50
 def rarity_bar_draw():
   #common values
   rarity_bar.color("grey")
@@ -169,37 +173,52 @@ while True:
       if_num = 0
 
     def rarity_color(x, y):
+      global color_for_turtle
+      color_for_turtle = "black"
       if 9000 <= int(x):
+        color_for_turtle = "grey"
         return("\033[1;31;40mSuper dooper common %s\033[1;37;40m\n" % (y))
       elif 8000 <= int(x):
+        color_for_turtle = "grey"
         return("\033[1;31;40mVery common %s\033[1;37;40m\n" % (y))
       elif 7000 <= int(x):
+        color_for_turtle = "grey"
         return("\033[1;31;40mPretty common %s\033[1;37;40m\n" % (y))
       elif 6000 <= int(x):
+        color_for_turtle = "grey"
         return("\033[1;32;40mCommon %s\033[1;37;40m\n" % (y))
       elif 5000 <= int(x):
+        color_for_turtle = "lime"
         return("\033[1;32;40mNormal %s\033[1;37;40m\n" % (y))
       elif 4000 <= int(x):
+        color_for_turtle = "lime"
         return("\033[1;33;40mUncommon %s\033[1;37;40m\n" % (y))
       elif 3000 <= int(x):
+        color_for_turtle = "lime"
         return("\033[1;33;40mLucky %s\033[1;37;40m\n" % (y))
       elif 2000 <= int(x):
+        color_for_turtle = "blue"
         return("\033[1;34;40mRare %s\033[1;37;40m\n" % (y))
       elif 1000 <= int(x):
+        color_for_turtle = "blue"
         return("\033[1;34;40mOutstanding %s\033[1;37;40m\n" % (y))
       elif 500 <= int(x):
+        color_for_turtle = "blue"
         return("\033[1;36;40mExceptional %s\033[1;37;40m\n" % (y))
       elif 300 <= int(x):
+        color_for_turtle = "purple"
         return("\033[1;35;40mepic %s\033[1;37;40m\n" % (y))
       elif 150 <= int(x):
+        color_for_turtle = "pink"
         return("\033[1;35;40mLegendary %s\033[1;37;40m\n" % (y))
       elif 50 <= int(x):
+        color_for_turtle = "red"
         return("\033[1;31;47mSupreme %s\033[1;37;40m\n" % (y))
       elif 10 <= int(x):
+        color_for_turtle = "gold"
         return("\033[1;30;43mGodly %s\033[1;37;40m\n" % (y))
       elif 3 <= int(x):
         return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (y))
-      
 
     #character pulling sequence
     x = if_num
@@ -216,15 +235,26 @@ while True:
       if chance <= int(character_rarity.group()):
 
         #gacha results
+        print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
+
         rolling_turtle.penup()
+
         rolling_turtle.goto(0, int(chance/rarity_size_shrinker))
+
         rolling_turtle.pendown()
+
         rolling_turtle.goto(rarity_bar_width + 10, int(chance/rarity_size_shrinker))
-        rolling_turtle.
+
+        character_turtle.goto(rarity_bar_width, int(chance/rarity_size_shrinker))
+
+        character_turtle.color(color_for_turtle)
+
+        character_turtle.write(character_name.group())
+        
         rolling_turtle.penup()
+
         rolling_turtle.goto(0, 0)
 
-        print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
         x = x + 1
         char_picker = random.randint(0, int(list_end))
         chance = random.randint(0, 10000)
@@ -287,6 +317,7 @@ while True:
       gacha_credits = buy(pull, gacha_credits.group())
       GC.write("\n%s" % (gacha_credits))
       GC.close()
+      print("you now have ", gacha_credits, "points")
     else:
       print("you have ", gacha_credits.group(), "points")
   

@@ -23,7 +23,7 @@ Pipi 150
 Yuzu 200
 Mimi 300
 Minh 2106
-Trash_can 8000
+Trash_can 800
 Bob 8000
 Lar 1
 Ninja_hyper 6
