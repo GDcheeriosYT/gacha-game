@@ -50,3 +50,5 @@ blake 140
 caleb 7487
 snckx 45
 mode 45
+waffies_pig 1
+Dan 1
