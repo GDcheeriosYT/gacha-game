@@ -2,6 +2,8 @@ import random
 import turtle as t
 import re
 import os
+import logging
+from itertools import cycle
 
 #turtle config
 font_setup = ("Arial", 20, "normal")
@@ -12,14 +14,59 @@ rolling_turtle.pensize(1)
 rolling_turtle.speed(1)
 
 #character turtle
+#writes down the character you got next to the rarity meter
 character_turtle = t.Turtle()
+
+#character count turtle
+#writes down total number of characters gotten in the session
+character_count_turtle = t.Turtle()
+character_count_turtle.speed(0)
+character_count_turtle.pensize(1)
+
+def side_leaderboard(characters):
+
+  character_count_turtle.clear()
+
+  #get the number of different total characters you can get
+  #sort out the numbers so only the names remain
+  with open("characters.txt") as f:
+    characters = f.read().splitlines()
+
+  people = []
+  
+  for character in characters:
+    people.append(character)
+  
+  print(people)
+  
+  #count up collected characters
+  with open("character_data.txt") as f:
+    collected_characters = f.read().split()
+  
+  collected_people = []
+
+  for name in collected_characters:
+    collected_people.append(name)
+  
+  depth = 150
+  x = 0
+
+  while x < len(people):
+    character_count_turtle.penup()
+    character_count_turtle.goto(-272, depth)
+    character_count_turtle.pendown()
+    character_count_turtle.write(people[x])
+    depth = depth - 10
+    x = x + 1
 
 #rarity bar turtle
 rarity_bar = t.Turtle()
 rarity_bar.penup()
+rarity_bar.speed(0)
 rarity_bar.pensize(1)
 rarity_bar_width = 20
-rarity_size_shrinker = 60
+rarity_size_shrinker = 55
+
 def rarity_bar_draw():
   #common values
   rarity_bar.color("grey")
@@ -174,7 +221,8 @@ while True:
 
     def rarity_color(x, y):
       global color_for_turtle
-      color_for_turtle = "black"
+      divine_colors = ["red", "green", "orange", "blue", "purple"]
+      color_for_turtle = cycle(divine_colors)
       if 9000 <= int(x):
         color_for_turtle = "grey"
         return("\033[1;31;40mSuper dooper common %s\033[1;37;40m\n" % (y))
@@ -218,11 +266,12 @@ while True:
         color_for_turtle = "gold"
         return("\033[1;30;43mGodly %s\033[1;37;40m\n" % (y))
       elif 3 <= int(x):
+        color_for_turtle = cycle(divine_colors)
         return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (y))
 
     #character pulling sequence
-    x = if_num
     rarity_bar_draw()
+    x = if_num
     while x < int(pull):
       #random character data
       char_picker = random.randint(0, int(list_end))
@@ -249,11 +298,13 @@ while True:
 
         character_turtle.color(color_for_turtle)
 
-        character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"))
+        character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
         
         rolling_turtle.penup()
 
         rolling_turtle.goto(0, 0)
+
+        rolling_turtle.clear()
 
         x = x + 1
         char_picker = random.randint(0, int(list_end))
@@ -338,3 +389,6 @@ while True:
 output = t.Screen()
 output.bgcolor("black")
 output.mainloop()
+
+#saving the log
+logging.basicConfig(filename="debug.log", level=logging.INFO)
