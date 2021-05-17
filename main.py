@@ -23,7 +23,7 @@ character_count_turtle = t.Turtle()
 character_count_turtle.speed(0)
 character_count_turtle.pensize(1)
 
-def side_leaderboard(characters):
+'''def side_leaderboard(characters):
 
   character_count_turtle.clear()
 
@@ -57,7 +57,7 @@ def side_leaderboard(characters):
     character_count_turtle.pendown()
     character_count_turtle.write(people[x])
     depth = depth - 10
-    x = x + 1
+    x = x + 1'''
 
 #rarity bar turtle
 rarity_bar = t.Turtle()

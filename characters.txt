@@ -14,7 +14,7 @@ Brayden 50
 Hunter 5500
 Jerry 20
 Oliver 750
-Max 5000
+Max_shrum 5000
 Umaru 150
 Madoka 100
 Super_max 10
@@ -52,3 +52,4 @@ snckx 45
 mode 45
 waffies_pig 1
 Dan 1
+max_tramontina 1
