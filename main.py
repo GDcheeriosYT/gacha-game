@@ -6,11 +6,89 @@ import logging
 from itertools import cycle
 
 #all turtle config
-font_setup = ("Arial", 20, "normal")
+font_size = 30
+font_setup = ("Arial", font_size, "normal")
+#please make turtle location no more than 200 or no less than -200 because it could be off the screen depending on your screen resolution
+location = 0
 
 #visual output function
 output = t.Screen()
 output.setup(height=1.0, width=1.0)
+
+#warning turtle
+warning_turtle = t.Turtle()
+warning_turtle.color("red")
+warning_turtle.penup()
+warning_turtle.hideturtle()
+warning_turtle.goto(-50, -230)
+warning_turtle.pendown()
+warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
+
+
+#function turtles
+def play(location, clear_var):
+  play_button = t.Turtle()
+  play_button.speed(0)
+  play_button.hideturtle()
+  play_button.penup()
+  play_button.goto(0, location)
+  play_button.pendown()
+  play_button.write("play", font=(font_setup))
+  if clear_var == 1:
+    play_button.clear()
+  else:
+    None
+
+def shop(location, clear_var):
+  shop_button = t.Turtle()
+  shop_button.speed(0)
+  shop_button.hideturtle()
+  shop_button.penup()
+  shop_button.goto(0, location - font_size)
+  shop_button.pendown()
+  shop_button.write("shop", font=(font_setup))
+  if clear_var == 1:
+   shop_button.clear()
+  else:
+    None
+
+def options(location, clear_var):
+  options_button = t.Turtle()
+  options_button.speed(0)
+  options_button.hideturtle()
+  options_button.penup()
+  options_button.goto(0, location - (font_size * 2))
+  options_button.pendown()
+  options_button.write("options", font=(font_setup))
+  if clear_var == 1:
+    options_button.clear()
+  else:
+    None
+
+def exit(location, clear_var):
+  exit_button = t.Turtle()
+  exit_button.speed(0)
+  exit_button.hideturtle()
+  exit_button.penup()
+  exit_button.goto(0, location - (font_size * 3))
+  exit_button.pendown()
+  exit_button.write("exit", font=(font_setup))
+  if clear_var == 1:
+    exit_button.clear()
+  else:
+    None
+
+def initiate_game():
+  play(location, 0)
+  shop(location, 0)
+  options(location, 0)
+  exit(location, 0)
+
+def hide_menu():
+  play(location, 1)
+  shop(location, 1)
+  options(location, 1)
+  exit(location, 1)
 
 #rolling turtle
 rolling_turtle = t.Turtle()
@@ -186,6 +264,7 @@ list_end = len(characters) - 1
 while True:
 
   #menu
+  initiate_game()
   menu = input("\n\n\n\n\n\n\n\n1, play\n2, shop\n3, options\n4, exit\n")
   t.clear()
   GC = open("GC.txt", "a+")
@@ -196,7 +275,7 @@ while True:
   gacha_credits = re.search("\d+", GC_read[len(GC_read)- 1])
 
   if menu == "1":
-
+    hide_menu()
 
     #pulling amount
     pull = input("\n\n\n\n\n\n\n\nyou have %s credits\n\nhow many do you want to pull?\n\n" % (gacha_credits.group()))
@@ -346,8 +425,8 @@ while True:
 
   elif menu == "2":
     #money function
-    shop = input("\n\n\n\n\n\n\n\n1, buy gacha credits\n2, see how many points you have\n")
-    if shop == "1":
+    shop_buy = input("\n\n\n\n\n\n\n\n1, buy gacha credits\n2, see how many points you have\n")
+    if shop_buy == "1":
       def buy(credits):
         buy_money = input("\n\n\n\n\n\n\n\nhow many credits will you buy? ")
         try:
@@ -370,7 +449,7 @@ while True:
       GC.close()
       print("you now have ", credits_bought, "points")
     else:
-      print("you have ", credits_bought, "points")
+      print("you have ", gacha_credits.group(), "points")
   
     
   elif menu == "3":
