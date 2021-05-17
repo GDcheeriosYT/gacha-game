@@ -5,8 +5,12 @@ import os
 import logging
 from itertools import cycle
 
-#turtle config
+#all turtle config
 font_setup = ("Arial", 20, "normal")
+
+#visual output function
+output = t.Screen()
+output.setup(height=1.0, width=1.0)
 
 #rolling turtle
 rolling_turtle = t.Turtle()
@@ -64,8 +68,8 @@ rarity_bar = t.Turtle()
 rarity_bar.penup()
 rarity_bar.speed(0)
 rarity_bar.pensize(1)
-rarity_bar_width = 20
-rarity_size_shrinker = 55
+rarity_bar_width = 50
+rarity_size_shrinker = 60
 
 def rarity_bar_draw():
   #common values
@@ -179,7 +183,6 @@ with open("characters.txt") as f:
 
 list_end = len(characters) - 1
 
-pull = 5
 while True:
 
   #menu
@@ -196,28 +199,29 @@ while True:
 
 
     #pulling amount
-    pull = input("\n\n\n\n\n\n\n\nhow much do you want to pull?\n\n ")
+    pull = input("\n\n\n\n\n\n\n\nyou have %s credits\n\nhow many do you want to pull?\n\n" % (gacha_credits.group()))
 
 
     #money function
-    def spend(x, y):
-      z = re.search("\d+", GC_read[len(GC_read)- 1])
-      if int(z.group()) >= int(y):
-        z = int(y) - int(x)
+    def spend(pull_amount, credits):
+      if int(credits) >= int(pull_amount):
+        ending_credits = int(credits) - int(pull_amount)
       else:
-        z = int(y) - int(x)
+        ending_credits = int(credits)
         print("not enough points")
-      return(z)
+      return(ending_credits)
     
-    gacha_credits = spend(pull, gacha_credits.group())
-    GC.write("\n%s" % (gacha_credits))
+    credits_spent = spend(pull, gacha_credits.group())
+    GC.write("\n%s" % (credits_spent))
     GC.close()
 
-    if gacha_credits < int(pull):
+    if int(GC_read[len(GC_read)- 1]) < int(pull):
       print("not enough gacha points")
       if_num = int(pull)
     else:
       if_num = 0
+
+    print("debug: GC_Read", int(GC_read[len(GC_read)- 1]), "pull", int(pull), "credits left", credits_spent)
 
     def rarity_color(x, y):
       global color_for_turtle
@@ -333,7 +337,7 @@ while True:
         sorting("character_data.txt")
 
         #output
-        print("you pulled %s characters!\n you have %s points left!" % (int(if_num), gacha_credits))
+        print("you pulled %s characters!\nyou have %s points left!" % (int(if_num), credits_spent))
 
         
       else:
@@ -344,33 +348,29 @@ while True:
     #money function
     shop = input("\n\n\n\n\n\n\n\n1, buy gacha credits\n2, see how many points you have\n")
     if shop == "1":
-      def buy(x, y):
+      def buy(credits):
         buy_money = input("\n\n\n\n\n\n\n\nhow many credits will you buy? ")
         try:
           buy_money
         except ValueError:
           print("expected an actual number kid...")
         
-        buy_money2 = int(buy_money) + int(y)
-        spend_money = int(x) - int(y)
+        
         mom_credit_card_num = random.randint(1000000000000000, 9999999999999999)
         mom_credit_card_csv = random.randint(100, 999)
         mom_credit_card_mon = random.randint(1, 12)
         mom_credit_card_day = random.randint(20, 24)
-        gacha_credits = buy_money2
+        gacha_credits = int(buy_money) + int(credits)
 
-        if int(gacha_credits) <= 0:
-          print("not enough money")
-        else:
-          print("using your moms credit card info...\nnumber: %s\ncsv: %s\nexp date: %s/%s" % (mom_credit_card_num, mom_credit_card_csv, mom_credit_card_mon, mom_credit_card_day))
+        print("using your moms credit card info...\nnumber: %s\ncsv: %s\nexp date: %s/%s" % (mom_credit_card_num, mom_credit_card_csv, mom_credit_card_mon, mom_credit_card_day))
           
         return(gacha_credits)
-      gacha_credits = buy(pull, gacha_credits.group())
-      GC.write("\n%s" % (gacha_credits))
+      credits_bought = buy(gacha_credits.group())
+      GC.write("\n%s" % (credits_bought))
       GC.close()
-      print("you now have ", gacha_credits, "points")
+      print("you now have ", credits_bought, "points")
     else:
-      print("you have ", gacha_credits.group(), "points")
+      print("you have ", credits_bought, "points")
   
     
   elif menu == "3":
@@ -386,8 +386,6 @@ while True:
     break
 
 #visual output function
-output = t.Screen()
-output.bgcolor("black")
 output.mainloop()
 
 #saving the log
