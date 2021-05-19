@@ -102,7 +102,7 @@ rolling_turtle.hideturtle()
 
 #character turtle
 #writes down the character you got next to the rarity meter
-#character_turtle = t.Turtle()
+character_turtle = t.Turtle()
 
 #character count turtle
 #writes down total number of characters gotten in the session
