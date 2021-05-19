@@ -473,14 +473,15 @@ while True:
   
     
   elif menu == "3":
-    options = input("\n\n\n\n\n\n\n\n1, clear data\n2, back\n")
+    options = input("\n\n\n\n\n\n\n\n1, reset data\n2, back\n")
     if options == "1":
-      try:
-        file = open("character_data.txt","r+")
-        file.truncate(0)
-        file.close()
-      except FileNotFoundError:
-        print("no data found...")
+      file = open("character_data.txt","r+")
+      file.truncate(0)
+      file.close()
+      file = open("GC.txt", "w+")
+      file.truncate(0)
+      file.write("20")
+      file.close()
     else:
       print("going back...")
   else:
