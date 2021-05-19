@@ -366,6 +366,7 @@ while True:
         return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (y))
 
     #character pulling sequence
+    character_turtle.clear()
     rarity_bar_draw()
     x = if_num
     while x < int(pull):
@@ -388,11 +389,19 @@ while True:
 
         rolling_turtle.pendown()
 
-        rolling_turtle.goto(rarity_bar_width + 10, int(int(character_rarity.group())/rarity_size_shrinker))
+        rolling_turtle.goto(rarity_bar_width, int(int(character_rarity.group())/rarity_size_shrinker))
+
+        character_turtle.penup()
+
+        character_turtle.hideturtle()
 
         character_turtle.goto(rarity_bar_width, int(int(character_rarity.group())/rarity_size_shrinker))
 
         character_turtle.color(color_for_turtle)
+
+        character_turtle.pendown()
+        
+        character_turtle.showturtle()
 
         character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
         
