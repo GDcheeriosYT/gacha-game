@@ -23,12 +23,13 @@ warning_turtle.hideturtle()
 warning_turtle.goto(-230, -130)
 warning_turtle.pendown()
 warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
-warning_turtle.penup()
-warning_turtle.goto(-230, -150)
-warning_turtle.write("not interactive...", font=("Arial", 15, "normal"))
+#warning_turtle.penup()
+#warning_turtle.goto(-230, -150)
+#warning_turtle.write("not interactive...", font=("Arial", 15, "normal"))
 
 
 #function turtles
+'''
 def play(location, clear_var):
   play_button = t.Turtle()
   play_button.speed(0)
@@ -92,23 +93,25 @@ def hide_menu():
   shop(location, 1)
   options(location, 1)
   exit(location, 1)
-
+'''
 #rolling turtle
 rolling_turtle = t.Turtle()
 rolling_turtle.pensize(1)
 rolling_turtle.speed(1)
+rolling_turtle.hideturtle()
 
 #character turtle
 #writes down the character you got next to the rarity meter
-character_turtle = t.Turtle()
+#character_turtle = t.Turtle()
 
 #character count turtle
 #writes down total number of characters gotten in the session
+'''
 character_count_turtle = t.Turtle()
 character_count_turtle.speed(0)
 character_count_turtle.pensize(1)
 
-'''def side_leaderboard(characters):
+def side_leaderboard(characters):
 
   character_count_turtle.clear()
 
@@ -267,7 +270,7 @@ list_end = len(characters) - 1
 while True:
 
   #menu
-  initiate_game()
+  #initiate_game()
   menu = input("\n\n\n\n\n\n\n\n1, play\n2, shop\n3, options\n4, exit\n")
   t.clear()
   GC = open("GC.txt", "a+")
@@ -278,7 +281,7 @@ while True:
   gacha_credits = re.search("\d+", GC_read[len(GC_read)- 1])
 
   if menu == "1":
-    hide_menu()
+    #hide_menu()
 
     #pulling amount
     pull = input("\n\n\n\n\n\n\n\nyou have %s credits\n\nhow many do you want to pull?\n\n" % (gacha_credits.group()))
@@ -286,12 +289,17 @@ while True:
 
     #money function
     def spend(pull_amount, credits):
-      if int(credits) >= int(pull_amount):
+      if int(pull_amount) < 0:
+        print("how do you expect to pull %s characters!?" % (pull_amount))
+        ending_credits = int(credits)
+        return(ending_credits)
+      elif int(credits) >= int(pull_amount):
         ending_credits = int(credits) - int(pull_amount)
-      else:
+        return(ending_credits)
+      else: 
         ending_credits = int(credits)
         print("not enough points")
-      return(ending_credits)
+        return(ending_credits)
     
     credits_spent = spend(pull, gacha_credits.group())
     GC.write("\n%s" % (credits_spent))
@@ -302,8 +310,6 @@ while True:
       if_num = int(pull)
     else:
       if_num = 0
-
-    print("debug: GC_Read", int(GC_read[len(GC_read)- 1]), "pull", int(pull), "credits left", credits_spent)
 
     def rarity_color(x, y):
       global color_for_turtle
@@ -419,7 +425,7 @@ while True:
         sorting("character_data.txt")
 
         #output
-        print("you pulled %s characters!\nyou have %s points left!" % (int(if_num), credits_spent))
+        print("you pulled %s characters!\nyou have %s points left!" % (int(pull), credits_spent))
 
         
       else:
