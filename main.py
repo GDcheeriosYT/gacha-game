@@ -20,9 +20,12 @@ warning_turtle = t.Turtle()
 warning_turtle.color("red")
 warning_turtle.penup()
 warning_turtle.hideturtle()
-warning_turtle.goto(-50, -230)
+warning_turtle.goto(-230, -130)
 warning_turtle.pendown()
 warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
+warning_turtle.penup()
+warning_turtle.goto(-230, -150)
+warning_turtle.write("not interactive...", font=("Arial", 15, "normal"))
 
 
 #function turtles
