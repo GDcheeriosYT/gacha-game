@@ -298,17 +298,21 @@ while True:
         return(ending_credits)
       else: 
         ending_credits = int(credits)
-        print("not enough points")
         return(ending_credits)
     
     credits_spent = spend(pull, gacha_credits.group())
     GC.write("\n%s" % (credits_spent))
     GC.close()
 
-    if int(GC_read[len(GC_read)- 1]) < int(pull):
+    if int(pull) < 0:
+      if_num = int(pull)
+      pull_reply = 0
+    elif int(GC_read[len(GC_read)- 1]) < int(pull):
       print("not enough gacha points")
       if_num = int(pull)
+      pull_reply = 0
     else:
+      pull_reply = int(pull)
       if_num = 0
 
     def rarity_color(x, y):
@@ -423,14 +427,13 @@ while True:
             outfile.writelines(" ")
           outfile.close()
         sorting("character_data.txt")
-
-        #output
-        print("you pulled %s characters!\nyou have %s points left!" % (int(pull), credits_spent))
-
         
       else:
         char_picker = random.randint(0, int(list_end))
         chance = random.randint(0, 10000)
+
+    #output
+    print("you pulled %s characters!\nyou have %s points left!" % (int(pull_reply), credits_spent))
 
   elif menu == "2":
     #money function
