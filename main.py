@@ -21,7 +21,7 @@ warning_turtle = t.Turtle()
 warning_turtle.color("red")
 warning_turtle.penup()
 warning_turtle.hideturtle()
-warning_turtle.goto(-230, -130)
+warning_turtle.goto(-140, -150)
 warning_turtle.pendown()
 warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
 #warning_turtle.penup()
@@ -104,6 +104,7 @@ rolling_turtle.hideturtle()
 #character turtle
 #writes down the character you got next to the rarity meter
 character_turtle = t.Turtle()
+character_turtle.speed(1)
 
 #character count turtle
 #writes down total number of characters gotten in the session
@@ -135,13 +136,21 @@ def side_leaderboard():
   depth = 150
   x = 0
 
+  #make sure that leaderboard is always a certain value before shrinking
+  if len(collected_people) < 15:
+    leaderboard_size = 15
+  else:
+    leaderboard_size = (len(collected_people) - 1)
+
   while x < len(collected_people):
     character_count_turtle.penup()
-    character_count_turtle.goto(-272, depth)
+    character_count_turtle.goto(-250, depth)
     character_count_turtle.pendown()
-    character_count_turtle.write("%s %s" % (collected_people[x], collected_characters.count(collected_people[x])), font=("arial", len(collected_people), "normal"))
-    depth = depth - len(collected_people)*2
+    character_count_turtle.write("%s %s" % (collected_people[x], collected_characters.count(collected_people[x])), font=("arial", int(leaderboard_size), "normal"))
+    depth = depth - (int(leaderboard_size) + 2)
     x = x + 1
+
+side_leaderboard()
 
 #rarity bar turtle
 rarity_bar = t.Turtle()
@@ -267,9 +276,6 @@ while True:
 
   #menu
   #initiate_game()
-
-  side_leaderboard()
-
   menu = input("\n\n\n\n\n\n\n\n1, play\n2, shop\n3, options\n4, exit\n")
   t.clear()
   GC = open("GC.txt", "a+")
@@ -403,6 +409,8 @@ while True:
         character_turtle.showturtle()
 
         character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
+
+        side_leaderboard()
         
         rolling_turtle.penup()
 
