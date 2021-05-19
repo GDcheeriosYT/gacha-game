@@ -158,110 +158,112 @@ rarity_bar.penup()
 rarity_bar.speed(0)
 rarity_bar.pensize(1)
 rarity_bar_width = 50
-rarity_size_shrinker = 60
+rarity_size_shrinker = 40
+rarity_bar_xval = 90
+rarity_bar_yval = -130
 
 def rarity_bar_draw():
   #common values
   rarity_bar.color("grey")
   rarity_bar.fillcolor("gray")
-  rarity_bar.goto(0, int(5001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(5001/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(5001/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(10000/rarity_size_shrinker))
-  rarity_bar.goto(0, int(10000/rarity_size_shrinker))
-  rarity_bar.goto(0, int(5001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(5001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(10000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(10000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(5001/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
   
   #normal-lucky value
   rarity_bar.color("lime")
   rarity_bar.fillcolor("lime")
-  rarity_bar.goto(0, int(5000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(5000/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(5000/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(2001/rarity_size_shrinker))
-  rarity_bar.goto(0, int(2001/rarity_size_shrinker))
-  rarity_bar.goto(0, int(5000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(5000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(2001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(2001/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(5000/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #rare-exceptional value
   rarity_bar.color("blue")
   rarity_bar.fillcolor("blue")
-  rarity_bar.goto(0, int(2000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(2000/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(2000/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(301/rarity_size_shrinker))
-  rarity_bar.goto(0, int(301/rarity_size_shrinker))
-  rarity_bar.goto(0, int(2000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(2000/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(301/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(301/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(2000/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #epic value
   rarity_bar.color("purple")
   rarity_bar.fillcolor("purple")
-  rarity_bar.goto(0, int(300/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(300/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(300/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(151/rarity_size_shrinker))
-  rarity_bar.goto(0, int(151/rarity_size_shrinker))
-  rarity_bar.goto(0, int(300/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(300/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(151/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(151/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(300/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #legendary value
   rarity_bar.color("pink")
   rarity_bar.fillcolor("pink")
-  rarity_bar.goto(0, int(150/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(150/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(150/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(51/rarity_size_shrinker))
-  rarity_bar.goto(0, int(51/rarity_size_shrinker))
-  rarity_bar.goto(0, int(150/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(150/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(51/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(51/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(150/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #supreme value
   rarity_bar.color("red")
   rarity_bar.fillcolor("red")
-  rarity_bar.goto(0, int(50/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(50/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(50/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(11/rarity_size_shrinker))
-  rarity_bar.goto(0, int(11/rarity_size_shrinker))
-  rarity_bar.goto(0, int(50/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(50/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(11/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(11/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(50/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #godly value
   rarity_bar.color("gold")
   rarity_bar.fillcolor("gold")
-  rarity_bar.goto(0, int(10/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(10/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(10/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(4/rarity_size_shrinker))
-  rarity_bar.goto(0, int(4/rarity_size_shrinker))
-  rarity_bar.goto(0, int(10/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(10/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(4/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(4/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(10/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
   #devine value
   rarity_bar.color("black")
   rarity_bar.fillcolor("white")
-  rarity_bar.goto(0, int(3/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(3/rarity_size_shrinker))
   rarity_bar.pendown()
   rarity_bar.begin_fill()
-  rarity_bar.goto(rarity_bar_width, int(3/rarity_size_shrinker))
-  rarity_bar.goto(rarity_bar_width, int(0/rarity_size_shrinker))
-  rarity_bar.goto(0, int(0/rarity_size_shrinker))
-  rarity_bar.goto(0, int(3/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(3/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(0/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(0/rarity_size_shrinker))
+  rarity_bar.goto(rarity_bar_xval, rarity_bar_yval + int(3/rarity_size_shrinker))
   rarity_bar.end_fill()
   rarity_bar.penup()
 
@@ -388,19 +390,23 @@ while True:
         #gacha results
         print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
 
+        #saving caracter data
+        character_data = open("character_data.txt", "a+")
+        character_data.write("%s\n" % (character_name.group()))
+
         rolling_turtle.penup()
 
-        rolling_turtle.goto(0, int(int(character_rarity.group())/rarity_size_shrinker))
+        rolling_turtle.goto(rarity_bar_xval, rarity_bar_yval + int(int(character_rarity.group())/rarity_size_shrinker))
 
         rolling_turtle.pendown()
 
-        rolling_turtle.goto(rarity_bar_width, int(int(character_rarity.group())/rarity_size_shrinker))
+        rolling_turtle.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(int(character_rarity.group())/rarity_size_shrinker))
 
         character_turtle.penup()
 
         character_turtle.hideturtle()
 
-        character_turtle.goto(rarity_bar_width, int(int(character_rarity.group())/rarity_size_shrinker))
+        character_turtle.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(int(character_rarity.group())/rarity_size_shrinker))
 
         character_turtle.color(color_for_turtle)
 
@@ -421,11 +427,6 @@ while True:
         x = x + 1
         char_picker = random.randint(0, int(list_end))
         chance = random.randint(0, 10000)
-          
-        #saving caracter data
-        character_data = open("character_data.txt", "a+")
-        character_data.write("%s\n" % (character_name.group()))
-
 
         #sorting the data
         def sorting(character_data):
