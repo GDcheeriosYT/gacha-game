@@ -4,6 +4,7 @@ import re
 import os
 import logging
 from itertools import cycle
+import collections
 
 #all turtle config
 font_size = 30
@@ -106,46 +107,41 @@ character_turtle = t.Turtle()
 
 #character count turtle
 #writes down total number of characters gotten in the session
-'''
+
 character_count_turtle = t.Turtle()
 character_count_turtle.speed(0)
 character_count_turtle.pensize(1)
 
-def side_leaderboard(characters):
+def side_leaderboard():
 
   character_count_turtle.clear()
 
   #get the number of different total characters you can get
   #sort out the numbers so only the names remain
-  with open("characters.txt") as f:
-    characters = f.read().splitlines()
-
-  people = []
-  
-  for character in characters:
-    people.append(character)
-  
-  print(people)
   
   #count up collected characters
   with open("character_data.txt") as f:
     collected_characters = f.read().split()
   
   collected_people = []
-
-  for name in collected_characters:
-    collected_people.append(name)
+  
+  for person in collected_characters:
+    if person not in collected_people:
+      collected_people.append(person)
+    else:
+      None
+    
   
   depth = 150
   x = 0
 
-  while x < len(people):
+  while x < len(collected_people):
     character_count_turtle.penup()
     character_count_turtle.goto(-272, depth)
     character_count_turtle.pendown()
-    character_count_turtle.write(people[x])
-    depth = depth - 10
-    x = x + 1'''
+    character_count_turtle.write("%s %s" % (collected_people[x], collected_characters.count(collected_people[x])), font=("arial", len(collected_people), "normal"))
+    depth = depth - len(collected_people)*2
+    x = x + 1
 
 #rarity bar turtle
 rarity_bar = t.Turtle()
@@ -271,6 +267,9 @@ while True:
 
   #menu
   #initiate_game()
+
+  side_leaderboard()
+
   menu = input("\n\n\n\n\n\n\n\n1, play\n2, shop\n3, options\n4, exit\n")
   t.clear()
   GC = open("GC.txt", "a+")
@@ -477,7 +476,9 @@ while True:
     options = input("\n\n\n\n\n\n\n\n1, clear data\n2, back\n")
     if options == "1":
       try:
-        os.remove("character_data.txt")
+        file = open("character_data.txt","r+")
+        file.truncate(0)
+        file.close()
       except FileNotFoundError:
         print("no data found...")
     else:
