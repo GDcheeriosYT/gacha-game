@@ -3,7 +3,6 @@ import turtle as t
 import re
 import os
 import logging
-from itertools import cycle
 import collections
 
 #all turtle config
@@ -21,7 +20,7 @@ warning_turtle = t.Turtle()
 warning_turtle.color("red")
 warning_turtle.penup()
 warning_turtle.hideturtle()
-warning_turtle.goto(-140, -150)
+warning_turtle.goto(-290, -150)
 warning_turtle.pendown()
 warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
 #warning_turtle.penup()
@@ -97,7 +96,7 @@ def hide_menu():
 '''
 #rolling turtle
 rolling_turtle = t.Turtle()
-rolling_turtle.pensize(1)
+rolling_turtle.pensize(5)
 rolling_turtle.speed(1)
 rolling_turtle.hideturtle()
 
@@ -105,6 +104,7 @@ rolling_turtle.hideturtle()
 #writes down the character you got next to the rarity meter
 character_turtle = t.Turtle()
 character_turtle.speed(1)
+character_turtle.pensize(5)
 
 #character count turtle
 #writes down total number of characters gotten in the session
@@ -121,7 +121,7 @@ def side_leaderboard():
   #sort out the numbers so only the names remain
   
   #count up collected characters
-  with open("character_data.txt") as f:
+  with open("character_data.txt", "r") as f:
     collected_characters = f.read().split()
   
   collected_people = []
@@ -132,7 +132,7 @@ def side_leaderboard():
     else:
       None
     
-  
+  non_depth = -290
   depth = 150
   x = 0
 
@@ -140,13 +140,34 @@ def side_leaderboard():
   if len(collected_people) < 15:
     leaderboard_size = 15
   else:
-    leaderboard_size = (len(collected_people) - 1)
+    leaderboard_size = (len(collected_people) / (len(collected_people)) - 15)
+
+  file = open("leaderboard.txt", "w+")
+
+  def always_write_the_file(x):
+    while x < len(collected_people):
+      file.write("%s %s\n" % (collected_people[x], collected_characters.count(collected_people[x])))
+      x = x + 1
+  
+  always_write_the_file(x)
+  file.close()
+
+  x = 0
+
+  with open("leaderboard.txt", "r") as f:
+    leaderboard = f.read().splitlines()
+  f.close()
 
   while x < len(collected_people):
     character_count_turtle.penup()
-    character_count_turtle.goto(-250, depth)
+    character_count_turtle.goto(non_depth, depth)
     character_count_turtle.pendown()
-    character_count_turtle.write("%s %s" % (collected_people[x], collected_characters.count(collected_people[x])), font=("arial", int(leaderboard_size), "normal"))
+    
+    sorted_leaderboard = sorted(leaderboard, key=lambda x: int(x.rsplit(" ", maxsplit=1)[-1]))
+
+    
+    character_count_turtle.write("%s" % (sorted_leaderboard[x]), font=("arial", int(leaderboard_size), "normal"))
+
     depth = depth - (int(leaderboard_size) + 2)
     x = x + 1
 
@@ -158,9 +179,9 @@ rarity_bar.penup()
 rarity_bar.speed(0)
 rarity_bar.pensize(1)
 rarity_bar_width = 50
-rarity_size_shrinker = 40
-rarity_bar_xval = 90
-rarity_bar_yval = -130
+rarity_size_shrinker = 30.5
+rarity_bar_xval = 130
+rarity_bar_yval = -155
 
 def rarity_bar_draw():
   #common values
@@ -322,55 +343,58 @@ while True:
       pull_reply = int(pull)
       if_num = 0
 
-    def rarity_color(x, y):
+    def rarity_color(rarity, name):
       global color_for_turtle
+      color_for_turtle = "blue"
       divine_colors = ["red", "green", "orange", "blue", "purple"]
-      color_for_turtle = cycle(divine_colors)
-      if 9000 <= int(x):
+      if 9000 <= int(rarity):
         color_for_turtle = "grey"
-        return("\033[1;31;40mSuper dooper common %s\033[1;37;40m\n" % (y))
-      elif 8000 <= int(x):
+        return("\033[1;31;40mSuper dooper common %s\033[1;37;40m\n" % (name))
+      elif 8000 <= int(rarity):
         color_for_turtle = "grey"
-        return("\033[1;31;40mVery common %s\033[1;37;40m\n" % (y))
-      elif 7000 <= int(x):
+        return("\033[1;31;40mVery common %s\033[1;37;40m\n" % (name))
+      elif 7000 <= int(rarity):
         color_for_turtle = "grey"
-        return("\033[1;31;40mPretty common %s\033[1;37;40m\n" % (y))
-      elif 6000 <= int(x):
+        return("\033[1;31;40mPretty common %s\033[1;37;40m\n" % (name))
+      elif 6000 <= int(rarity):
         color_for_turtle = "grey"
-        return("\033[1;32;40mCommon %s\033[1;37;40m\n" % (y))
-      elif 5000 <= int(x):
+        return("\033[1;32;40mCommon %s\033[1;37;40m\n" % (name))
+      elif 5000 <= int(rarity):
         color_for_turtle = "lime"
-        return("\033[1;32;40mNormal %s\033[1;37;40m\n" % (y))
-      elif 4000 <= int(x):
+        return("\033[1;32;40mNormal %s\033[1;37;40m\n" % (name))
+      elif 4000 <= int(rarity):
         color_for_turtle = "lime"
-        return("\033[1;33;40mUncommon %s\033[1;37;40m\n" % (y))
-      elif 3000 <= int(x):
+        return("\033[1;33;40mUncommon %s\033[1;37;40m\n" % (name))
+      elif 3000 <= int(rarity):
         color_for_turtle = "lime"
-        return("\033[1;33;40mLucky %s\033[1;37;40m\n" % (y))
-      elif 2000 <= int(x):
+        return("\033[1;33;40mLucky %s\033[1;37;40m\n" % (name))
+      elif 2000 <= int(rarity):
         color_for_turtle = "blue"
-        return("\033[1;34;40mRare %s\033[1;37;40m\n" % (y))
-      elif 1000 <= int(x):
+        return("\033[1;34;40mRare %s\033[1;37;40m\n" % (name))
+      elif 1000 <= int(rarity):
         color_for_turtle = "blue"
-        return("\033[1;34;40mOutstanding %s\033[1;37;40m\n" % (y))
-      elif 500 <= int(x):
+        return("\033[1;34;40mOutstanding %s\033[1;37;40m\n" % (name))
+      elif 500 <= int(rarity):
         color_for_turtle = "blue"
-        return("\033[1;36;40mExceptional %s\033[1;37;40m\n" % (y))
-      elif 300 <= int(x):
+        return("\033[1;36;40mExceptional %s\033[1;37;40m\n" % (name))
+      elif 300 <= int(rarity):
         color_for_turtle = "purple"
-        return("\033[1;35;40mepic %s\033[1;37;40m\n" % (y))
-      elif 150 <= int(x):
+        return("\033[1;35;40mepic %s\033[1;37;40m\n" % (name))
+      elif 150 <= int(rarity):
         color_for_turtle = "pink"
-        return("\033[1;35;40mLegendary %s\033[1;37;40m\n" % (y))
-      elif 50 <= int(x):
+        return("\033[1;35;40mLegendary %s\033[1;37;40m\n" % (name))
+      elif 50 <= int(rarity):
         color_for_turtle = "red"
-        return("\033[1;31;47mSupreme %s\033[1;37;40m\n" % (y))
-      elif 10 <= int(x):
+        return("\033[1;31;47mSupreme %s\033[1;37;40m\n" % (name))
+      elif 10 <= int(rarity):
         color_for_turtle = "gold"
-        return("\033[1;30;43mGodly %s\033[1;37;40m\n" % (y))
-      elif 3 <= int(x):
-        color_for_turtle = cycle(divine_colors)
-        return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (y))
+        return("\033[1;30;43mGodly %s\033[1;37;40m\n" % (name))
+      elif 3 <= int(rarity):
+        color_for_turtle = 0
+        return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (name))
+      else:
+        color_for_turtle = 0
+        return("\033[1;31;40mD\033[1;32;40mi\033[1;33;40mv\033[1;34;40mi\033[1;35;40mn\033[1;36;40m\033[1;37;40me %s" % (name))
 
     #character pulling sequence
     character_turtle.clear()
@@ -390,6 +414,8 @@ while True:
         #gacha results
         print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
 
+        print(character_name.group())
+
         #saving caracter data
         character_data = open("character_data.txt", "a+")
         character_data.write("%s\n" % (character_name.group()))
@@ -408,21 +434,32 @@ while True:
 
         character_turtle.goto(rarity_bar_xval + rarity_bar_width, rarity_bar_yval + int(int(character_rarity.group())/rarity_size_shrinker))
 
-        character_turtle.color(color_for_turtle)
-
         character_turtle.pendown()
         
         character_turtle.showturtle()
 
-        character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
+        if color_for_turtle == 0:
+          while x < len(list(character_name.group()[x])):
+            divine_colors = ["red", "green", "orange", "blue", "purple"]
 
-        side_leaderboard()
+            character_turtle.color(divine_colors[x])
+
+            character_turtle.write(list(character_name.group()[x]))
+
+            x = x + 1
+
+        else:
+          character_turtle.color(color_for_turtle)
+
+          character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
+
+          character_count_turtle.color(color_for_turtle)
         
         rolling_turtle.penup()
 
         rolling_turtle.goto(0, 0)
 
-        rolling_turtle.clear()
+        side_leaderboard()
 
         x = x + 1
         char_picker = random.randint(0, int(list_end))
@@ -451,6 +488,8 @@ while True:
 
     #output
     print("you pulled %s characters!\nyou have %s points left!" % (int(pull_reply), credits_spent))
+
+    rolling_turtle.clear()
 
   elif menu == "2":
     #money function

@@ -53,3 +53,5 @@ mode 45
 waffies_pig 1
 Dan 1
 max_tramontina 1
+hammy 500
+revoh 1
