@@ -137,10 +137,13 @@ def side_leaderboard():
   x = 0
 
   #make sure that leaderboard is always a certain value before shrinking
-  if len(collected_people) < 15:
-    leaderboard_size = 15
+
+  threshold = 15
+
+  if len(collected_people) < threshold:
+    leaderboard_size = threshold
   else:
-    leaderboard_size = (len(collected_people) / (len(collected_people)) - 15)
+    leaderboard_size = (len(collected_people) / (len(collected_people)) - threshold)
 
   file = open("leaderboard.txt", "w+")
 
@@ -168,7 +171,7 @@ def side_leaderboard():
     
     character_count_turtle.write("%s" % (sorted_leaderboard[x]), font=("arial", int(leaderboard_size), "normal"))
 
-    depth = depth - (int(leaderboard_size) + 2)
+    depth = depth - threshold
     x = x + 1
 
 side_leaderboard()
@@ -412,6 +415,7 @@ while True:
       if chance <= int(character_rarity.group()):
 
         #gacha results
+        
         print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
 
         print(character_name.group())
@@ -419,6 +423,7 @@ while True:
         #saving caracter data
         character_data = open("character_data.txt", "a+")
         character_data.write("%s\n" % (character_name.group()))
+        character_data.close()
 
         rolling_turtle.penup()
 
@@ -459,8 +464,6 @@ while True:
 
         rolling_turtle.goto(0, 0)
 
-        side_leaderboard()
-
         x = x + 1
         char_picker = random.randint(0, int(list_end))
         chance = random.randint(0, 10000)
@@ -481,6 +484,8 @@ while True:
             outfile.writelines(" ")
           outfile.close()
         sorting("character_data.txt")
+
+        side_leaderboard()
         
       else:
         char_picker = random.randint(0, int(list_end))
@@ -529,6 +534,9 @@ while True:
       file = open("GC.txt", "w+")
       file.truncate(0)
       file.write("20")
+      file.close()
+      file = open("leaderboard.txt", "r+")
+      file.truncate(0)
       file.close()
     else:
       print("going back...")
