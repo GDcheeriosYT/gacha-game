@@ -5,6 +5,44 @@ import os
 import logging
 import collections
 
+#option stuff
+debug = 0
+
+#pity
+rolls = 0
+pity = 0
+
+def pity_op(chance):
+  global pity_tier
+  pity_tier = 0
+
+  if rolls < 25:
+    return random.randint(0, 10000)
+
+  elif rolls >= 25:
+    pity_tier = 1
+    rarity_divider = random.randint(1, 2)
+    divided_chance = chance / rarity_divider
+    return int(divided_chance)
+
+  elif rolls >= 50:
+    pity_tier = 2
+    rarity_divider = random.randint(1, 5)
+    divided_chance = chance / rarity_divider
+    return int(divided_chance)
+
+  elif rolls >= 75:
+    pity_tier = 3
+    rarity_divider = random.randint(1, 10)
+    divided_chance = chance / rarity_divider
+    return int(divided_chance)
+  
+  elif rolls >= 100:
+    pity_tier = 4
+    rarity_divider = random.randint(1, 20)
+    divided_chance = chance / rarity_divider
+    return int(divided_chance)
+
 #all turtle config
 font_size = 30
 font_setup = ("Arial", font_size, "normal")
@@ -16,13 +54,13 @@ output = t.Screen()
 output.setup(height=1.0, width=1.0)
 
 #warning turtle
-warning_turtle = t.Turtle()
+"""warning_turtle = t.Turtle()
 warning_turtle.color("red")
 warning_turtle.penup()
 warning_turtle.hideturtle()
 warning_turtle.goto(-290, -150)
 warning_turtle.pendown()
-warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))
+warning_turtle.write("the main menu is work in progress...", font=("Arial", 15, "normal"))"""
 #warning_turtle.penup()
 #warning_turtle.goto(-230, -150)
 #warning_turtle.write("not interactive...", font=("Arial", 15, "normal"))
@@ -121,10 +159,10 @@ character_count_turtle.pensize(1)
     
     self.xp_count = 0
 
-    self.level = 0"""
+    self.level = 0
 
-"""with open("experience.txt", "w+") as f:
-  f = experience.read().splitlines()
+with open("experience.txt", "w+") as f:
+  experience = f.read().splitlines()
 
 experience_info = {}
 
@@ -153,13 +191,13 @@ def side_leaderboard():
     else:
       None
     
-  non_depth = -230
-  depth = 150
+  non_depth = -370
+  depth = 200
   x = 0
 
   #make sure that leaderboard is always a certain value before shrinking
 
-  threshold = 15
+  threshold = 8
 
   if len(collected_people) < threshold:
     leaderboard_size = threshold
@@ -427,7 +465,12 @@ while True:
     while x < int(pull):
       #random character data
       char_picker = random.randint(0, int(list_end))
-      chance = random.randint(0, 10000)
+      non_pity_chance = random.randint(0, 10000)
+      if pity == 0:
+        chance = non_pity_chance
+      
+      else:
+        chance = pity_op(non_pity_chance)
 
 
       #character and rarity grabber
@@ -436,10 +479,25 @@ while True:
       if chance <= int(character_rarity.group()):
 
         #gacha results
+
+        if int(character_rarity.group()) > 150:
+          rolls = rolls + 1
         
+        else:
+          rolls = 0
+
         print("you pulled a(n) %swhich has a %s out of 10000 chance!" % (rarity_color(character_rarity.group(), character_name.group()), character_rarity.group()))
 
-        print(character_name.group())
+        if debug == 1:
+          print("\ndebug\npity on:%s\nrolls:%s\nchance without pity:%s\npity chance:%s\npity tier:%s\n" % (pity, rolls, non_pity_chance, chance, pity_tier))
+        else:
+          None
+
+        file = open("pull_history.txt", "a+")
+        file.write("%s %s\n" % (character_name.group(), character_rarity.group()))
+        file.close()
+
+        print(character_name.group(), "\n")
 
         #saving caracter data
         character_data = open("character_data.txt", "a+")
@@ -513,7 +571,9 @@ while True:
         chance = random.randint(0, 10000)
 
     #output
-    print("you pulled %s characters!\nyou have %s points left!" % (int(pull_reply), credits_spent))
+    print("you pulled %s characters!\nyou have %s points left!\nit has been %s rolls since a good roll" % (int(pull_reply), credits_spent, rolls))
+
+    
 
     rolling_turtle.clear()
 
@@ -547,20 +607,54 @@ while True:
   
     
   elif menu == "3":
-    options = input("\n\n\n\n\n\n\n\n1, reset data\n2, back\n")
+
+    """#reading config and options
+    with open("config.txt", "a+") as f:
+      config = f.read().splitlines()"""
+
+    options = input("\n\n\n\n\n\n\n\n1, reset data\n2, pity %s\n3, debug %s\n4, back\n" % (pity, debug))
+
     if options == "1":
       file = open("character_data.txt","r+")
       file.truncate(0)
       file.close()
+
       file = open("GC.txt", "w+")
       file.truncate(0)
       file.write("20")
       file.close()
+
       file = open("leaderboard.txt", "r+")
       file.truncate(0)
       file.close()
+
+      file = open("pull_history.txt", "r+")
+      file.truncate(0)
+      file.close()
+
+      rolls = 0
+
+      """config[0].write("pity = 0")
+      config.close"""
+
+    elif options == "2":
+      if pity != 1:
+        pity = 1
+
+      else:
+        pity = 0
+
+    elif options == "3":
+      if debug != 1:
+        debug = 1
+      
+      else:
+        debug = 0
+
     else:
       print("going back...")
+      #config.close()
+
   else:
     break
 
