@@ -1,4 +1,5 @@
 import random
+import tkinter
 import turtle as t
 import re
 import os
