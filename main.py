@@ -205,7 +205,7 @@ rarity_bar.pensize(1)
 rarity_bar_width = 50
 rarity_size_shrinker = 30.5
 rarity_bar_xval = 100
-rarity_bar_yval = -100
+rarity_bar_yval = -125
 
 def rarity_bar_draw():
   #common values
