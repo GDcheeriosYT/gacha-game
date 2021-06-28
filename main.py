@@ -108,10 +108,31 @@ character_turtle.pensize(5)
 
 #character count turtle
 #writes down total number of characters gotten in the session
-
 character_count_turtle = t.Turtle()
 character_count_turtle.speed(0)
 character_count_turtle.pensize(1)
+
+#experience counter
+"""class experience:
+
+  def __init__(self, xp_multiplier, xp_count, level):
+
+    self.xp_multiplier = 1
+    
+    self.xp_count = 0
+
+    self.level = 0"""
+
+"""with open("experience.txt", "w+") as f:
+  f = experience.read().splitlines()
+
+experience_info = {}
+
+for line in experience:
+
+  experience_info[str(line)]
+
+def xp_algorithms()"""
 
 def side_leaderboard():
 
