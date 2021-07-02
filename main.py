@@ -44,6 +44,50 @@ def pity_op(chance):
     divided_chance = chance / rarity_divider
     return int(divided_chance)
 
+#turtle pulling animation
+pulling_area_max = 300
+
+pulling_area_min = 50
+
+pulling_area_start = 50
+
+pulling_area_end = 400
+
+spark_size = 10
+
+sparks_size = 1
+
+trail_size = 1
+
+def pull_animation(rarity_color):
+  
+  #the main body of the pulling animation
+  pull_spark = t.Turtle()
+  pull_spark.size(spark_size)
+  pull_spark.setheading("circle")
+  pull_spark.speed(3)
+  pull_spark.color(rarity_color)
+  
+  #the sparks for the body of the animation
+  pull_sparks = t.Turtle()
+  pull_sparks.size(pull_sparks)
+  pull_sparks.speed(0)
+  pull_spark.color(rarity_color)
+  
+  #the trail of the body of the animation
+  pull_trail = t.Turtle()
+  pull_trail.size(trail_size)
+  pull_trail.color(rarity_color)
+
+  #animation initiation
+  pull_spark.penup()
+  
+  pull_spark_y_spawn = random.randint(pulling_area_min, pulling_area_max)
+  
+  pull_spark.goto(pulling_area_start, pull_spark_y_spawn)
+  
+  pull_spark.circle(pulling_area_end, 180, 25)
+
 #all turtle config
 font_size = 30
 font_setup = ("Arial", font_size, "normal")
