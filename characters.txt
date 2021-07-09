@@ -67,3 +67,7 @@ luke 800
 amy 777
 sava 6969
 sharp 1
+nolan 7049
+joe_nuts 6969
+thunder 4200
+ozmand 6900
