@@ -6,8 +6,23 @@ import os
 import logging
 import collections
 
+#visual output function
+output = t.Screen()
+
+output.setup(height=1.0, width=1.0)
+
+screensize = output.screensize()
+
+screen_width = screensize[0]
+
+screen_height = screensize[1]
+
+screen_area = screen_height * screen_width
+
+
 #option stuff
 debug = 0
+ui_scale = 1.5
 
 #pity
 rolls = 0
@@ -78,6 +93,8 @@ def pull_animation(rarity_color):
   pull_trail = t.Turtle()
   pull_trail.size(trail_size)
   pull_trail.color(rarity_color)
+  
+  #the ending effect of the animation, depending on rarity effect will be more intense
 
   #animation initiation
   pull_spark.penup()
@@ -89,14 +106,10 @@ def pull_animation(rarity_color):
   pull_spark.circle(pulling_area_end, 180, 25)
 
 #all turtle config
-font_size = 30
+font_size = int(screen_area * ui_scale / screen_width)
 font_setup = ("Arial", font_size, "normal")
 #please make turtle location no more than 200 or no less than -200 because it could be off the screen depending on your screen resolution
 location = 0
-
-#visual output function
-output = t.Screen()
-output.setup(height=1.0, width=1.0)
 
 #warning turtle
 """warning_turtle = t.Turtle()
@@ -193,7 +206,7 @@ character_turtle.pensize(5)
 #writes down total number of characters gotten in the session
 character_count_turtle = t.Turtle()
 character_count_turtle.speed(0)
-character_count_turtle.pensize(1)
+character_count_turtle.pensize(font_size)
 
 #experience counter
 """class experience:
@@ -236,13 +249,13 @@ def side_leaderboard():
     else:
       None
     
-  non_depth = -370
-  depth = 200
+  non_depth = (screen_width - screen_width * 2) + 10
+  depth = screen_height / 2
   x = 0
 
   #make sure that leaderboard is always a certain value before shrinking
-
-  threshold = 8
+  threshold = font_size * 1.5
+  print(threshold)
 
   if len(collected_people) < threshold:
     leaderboard_size = threshold
@@ -273,7 +286,7 @@ def side_leaderboard():
     sorted_leaderboard = sorted(leaderboard, key=lambda x: int(x.rsplit(" ", maxsplit=1)[-1]))
 
     
-    character_count_turtle.write("%s" % (sorted_leaderboard[x]), font=("arial", int(leaderboard_size), "normal"))
+    character_count_turtle.write("%s" % (sorted_leaderboard[x]), font=("arial", font_size, "normal"))
 
     depth = depth - threshold
     x = x + 1
@@ -580,7 +593,7 @@ while True:
         else:
           character_turtle.color(color_for_turtle)
 
-          character_turtle.write(character_name.group(), font=("Calibri", 8, "bold"), move=True)
+          character_turtle.write(character_name.group(), font=("Calibri", font_size, "bold"), move=True)
 
           character_count_turtle.color(color_for_turtle)
         
